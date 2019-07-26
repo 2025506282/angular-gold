@@ -25,3 +25,26 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+
+
+
+# 沙漠闹黄金
+## 1、简介
+这是一个关于黄金大盘走势分析的一个项目，主要分为三个模块
+
+爬虫模块
+
+黄金模块
+
+新闻模块
+
+## 2、技术背景
+前端 Angular8 + Ant Design of Angular
+
+后端 Node + Express + MongoDB
+
+## 3、项目模块
+
+### 3.1、爬虫模块
+爬取黄金数据，几种黄金品种的数据，并且是可视化爬虫
+
