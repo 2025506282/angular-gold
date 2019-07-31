@@ -1,0 +1,60 @@
+<nz-row>
+  <button nz-button (click)="addRow()" nzType="primary">Add</button>
+  <button nz-button (click)="send()" nzType="primary" style="margin-left: 10px;">Send</button>
+</nz-row>
+<nz-table
+#editRowTable
+nzBordered
+[nzData]="spiders"
+[nzShowPagination]="false"
+>
+<thead>
+  <tr>
+    <th nzWidth="30%">名称</th>
+    <th>选择器</th>
+    <th>值</th>
+    <th>操作</th>
+  </tr>
+</thead>
+<tbody>
+  <tr class="editable-row">
+    <td>
+      {{spiderHeader[0].name}}
+    </td>
+    <td>
+      <input type="text" nz-input [placeholder]="spiderHeader[0].name"  [(ngModel)]="spiderHeader[0].selector"/>
+    </td>
+    <td>无</td>
+    <td>无</td>
+  </tr>
+  <tr *ngFor="let item of editRowTable.data;let i = index;" class="editable-row" >
+    <td>
+      <input
+        type="text"
+        nz-input
+        [(ngModel)]="item.name"
+        placeholder="请输入需要获取字段名称（自定义）"
+      />
+    </td>
+    <td>
+      <input
+        type="text"
+        nz-input
+        [(ngModel)]="item.selector"
+        placeholder="请输入字段值"
+      />
+    </td>
+    <td>
+      {{item.value}}
+    </td>
+    <td>
+      <a
+        nz-popconfirm
+        nzTitle="Sure to delete?"
+        (nzOnConfirm)="deleteRow(item.id)"
+        >Delete</a
+      >
+    </td>
+  </tr>
+</tbody>
+</nz-table>

@@ -19,15 +19,15 @@
   <tbody>
     <tr class="editable-row">
       <td>
-        {{spiders[0].name}}
+        {{spiderHeader[0].name}}
       </td>
       <td>
-        <input type="text" nz-input [placeholder]="spiders[0].name"  [(ngModel)]="spiders[0].selector"/>
+        <input type="text" nz-input [placeholder]="spiderHeader[0].name"  [(ngModel)]="spiderHeader[0].selector"/>
       </td>
       <td>无</td>
       <td>无</td>
     </tr>
-    <tr *ngFor="let item of editRowTable.data.slice(1);let i = index;" class="editable-row" >
+    <tr *ngFor="let item of editRowTable.data;let i = index;" class="editable-row" >
       <td>
         <input
           type="text"

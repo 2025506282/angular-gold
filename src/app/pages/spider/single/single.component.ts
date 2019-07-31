@@ -1,18 +1,13 @@
-import { Component, OnInit, ElementRef, ViewChild, HostListener } from '@angular/core';
-import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { NzInputDirective } from 'ng-zorro-antd';
-// import io from 'socket.io-client';
-import { SpiderService } from './spider.service';
+import { Component, OnInit } from '@angular/core';
 import { ISpider } from 'src/app/shared/interfaces/spider';
-
+import { SpiderService } from '../spider.service';
 
 @Component({
-  selector: 'app-spider',
-  templateUrl: './spider.component.html',
-  styleUrls: ['./spider.component.scss']
+  selector: 'app-single',
+  templateUrl: './single.component.html',
+  styleUrls: ['./single.component.scss']
 })
-
-export class SpiderComponent implements OnInit {
+export class SingleComponent implements OnInit {
   private spiderHeader: Array<ISpider> = [
     {
       id: '1',
@@ -58,5 +53,4 @@ export class SpiderComponent implements OnInit {
     //   console.log('disconnect');
     // });
   }
-
 }

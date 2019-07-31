@@ -4,10 +4,14 @@ import { SharedModule } from '../../shared/shared.module';
 import { SpiderRoutes } from './spider.routing';
 import { NewsComponent } from './news/news.component';
 import { GoldComponent } from './gold/gold.component';
+import { MultipleComponent } from './multiple/multiple.component';
+import { SingleComponent } from './single/single.component';
 const COMPONENTS  = [
   SpiderComponent,
   NewsComponent,
-  GoldComponent
+  GoldComponent,
+  MultipleComponent,
+  SingleComponent
 ]
 @NgModule({
   imports: [
