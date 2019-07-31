@@ -1,60 +1,67 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, HostListener } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { NzInputDirective } from 'ng-zorro-antd';
+// import io from 'socket.io-client';
+import { SpiderService } from './spider.service';
 
+interface ISpider {
+  id: string,
+  name: string,
+  selector: string,
+  value?: string
+}
 @Component({
   selector: 'app-spider',
   templateUrl: './spider.component.html',
   styleUrls: ['./spider.component.scss']
 })
+
 export class SpiderComponent implements OnInit {
-  validateForm: FormGroup;
-  listOfControl: Array<{ id: number; controlInstance: string }> = [];
-
-  addField(e?: MouseEvent): void {
-    if (e) {
-      e.preventDefault();
+  spiderHeader: Array<ISpider> = [
+    {
+      id: '1',
+      name: '爬取网址',
+      selector: 'http://www.dyhjw.com/jinjiaosuo.html'
     }
-    const id = this.listOfControl.length > 0 ? this.listOfControl[this.listOfControl.length - 1].id + 1 : 0;
-
-    const control = {
-      id,
-      controlInstance: `passenger${id}`
-    };
-    const index = this.listOfControl.push(control);
-    console.log(this.listOfControl[this.listOfControl.length - 1]);
-    this.validateForm.addControl(
-      this.listOfControl[index - 1].controlInstance,
-      new FormControl(null, Validators.required)
-    );
+  ]
+  spiders: Array<ISpider> = this.spiderHeader;
+  listOfData: any[] = [];
+  private addRow(): void {
+    this.spiders = [
+      ...this.spiders,
+      {
+        id: `${++this.spiders.length}`,
+        name: null,
+        selector: null,
+        value: null,
+      }
+    ];
   }
-
-  removeField(i: { id: number; controlInstance: string }, e: MouseEvent): void {
-    e.preventDefault();
-    if (this.listOfControl.length > 1) {
-      const index = this.listOfControl.indexOf(i);
-      this.listOfControl.splice(index, 1);
-      console.log(this.listOfControl);
-      this.validateForm.removeControl(i.controlInstance);
+  private send(): void {
+    const body = {
+      url: this.spiders[0].selector,
+      data: this.spiders.slice(1)
     }
+    this._spiderService.spiderGold(body).subscribe(res => {
+      this.spiders = [...this.spiderHeader, ...res];
+      console.log(res);
+    })
   }
-
-  getFormControl(name: string): AbstractControl {
-    return this.validateForm.controls[name];
+  deleteRow(id: string): void {
+    this.spiders = this.spiders.filter(d => d.id !== id);
   }
-
-  submitForm(): void {
-    for (const i in this.validateForm.controls) {
-      this.validateForm.controls[i].markAsDirty();
-      this.validateForm.controls[i].updateValueAndValidity();
-    }
-    console.log(this.validateForm.value);
-  }
-
-  constructor(private fb: FormBuilder) {}
-
+  constructor(private _spiderService: SpiderService){}
   ngOnInit(): void {
-    this.validateForm = this.fb.group({});
-    this.addField();
+    // const socket = io('http://localhost');
+    // socket.on('connect', function(socket){
+    //   console.log('connect', socket);
+    // });
+    // socket.on('event', function(data){
+    //   console.log(data);
+    // });
+    // socket.on('disconnect', function(){
+    //   console.log('disconnect');
+    // });
   }
 
 }
