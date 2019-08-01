@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { SpiderComponent } from './spider.component';
+import { SpiderComponent } from './components/spider/spider.component';
 import { SharedModule } from '../../shared/shared.module';
 import { SpiderRoutes } from './spider.routing';
 import { NewsComponent } from './news/news.component';

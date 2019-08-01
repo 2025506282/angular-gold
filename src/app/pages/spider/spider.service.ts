@@ -10,4 +10,7 @@ export class SpiderService {
   public spiderGold(body: any): Observable<any> {
     return this._http.post("/spider/gold", body);
   }
+  public spiderUrl(body: any): Observable<any> {
+    return this._http.post("/spider/url", body);
+  }
 }

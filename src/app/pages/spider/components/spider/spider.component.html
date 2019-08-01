@@ -17,7 +17,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr class="editable-row">
+    <tr class="editable-row" *ngIf="!isHideSpiderHeader">
       <td>
         {{spiderHeader[0].name}}
       </td>

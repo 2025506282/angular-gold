@@ -1,8 +1,8 @@
-import { Component, OnInit, ElementRef, ViewChild, HostListener } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, HostListener, Input } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NzInputDirective } from 'ng-zorro-antd';
 // import io from 'socket.io-client';
-import { SpiderService } from './spider.service';
+import { SpiderService } from '../../spider.service';
 import { ISpider } from 'src/app/shared/interfaces/spider';
 
 
@@ -13,6 +13,7 @@ import { ISpider } from 'src/app/shared/interfaces/spider';
 })
 
 export class SpiderComponent implements OnInit {
+  @Input() isHideSpiderHeader:boolean | undefined;
   private spiderHeader: Array<ISpider> = [
     {
       id: '1',

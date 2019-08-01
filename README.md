@@ -38,7 +38,7 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 新闻模块
 
-## 2、技术背景
+## 2、技术选型
 前端 Angular8 + Ant Design of Angular
 
 后端 Node + Express + MongoDB
