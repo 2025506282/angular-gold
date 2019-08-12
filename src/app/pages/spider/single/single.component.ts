@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ISpider } from 'src/app/shared/interfaces/spider';
+import { IElement } from 'src/app/shared/interfaces/spider';
 import { SpiderService } from '../spider.service';
 
 @Component({
@@ -8,7 +8,7 @@ import { SpiderService } from '../spider.service';
   styleUrls: ['./single.component.scss']
 })
 export class SingleComponent implements OnInit {
-  private spiderHeader: Array<ISpider> = [
+  private spiderHeader: Array<IElement> = [
     {
       id: '1',
       name: '爬取网址',
@@ -16,7 +16,7 @@ export class SingleComponent implements OnInit {
       value: null
     }
   ]
-  private spiders: Array<ISpider> = [];
+  private spiders: Array<IElement> = [];
   public addRow(): void {
     this.spiders = [
       ...this.spiders,

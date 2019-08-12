@@ -1,5 +1,5 @@
-export interface ISpider {
-  id: string;
+export interface IElement {
+  id?: string;
   name: string;
   selector: string;
   value?: string;

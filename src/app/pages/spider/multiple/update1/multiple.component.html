@@ -1,0 +1,120 @@
+<nz-steps [nzCurrent]="current">
+  <nz-step nzTitle="获取爬虫url"></nz-step>
+  <nz-step nzTitle="爬取内容"></nz-step>
+  <nz-step nzTitle="完成"></nz-step>
+</nz-steps>
+<div class="steps-content" [ngSwitch]="current">
+  <div *ngSwitchCase="0">
+    <div nz-col nzSpan="18" style="margin-top: 10px;">
+      <input nz-input [(ngModel)]="url" placeholder="请输入爬取的url" />
+    </div>
+    <div nz-col nzSpan="18" style="margin-top: 10px;">
+      <input
+        nz-input
+        [(ngModel)]="elementsSingle[0].selector"
+        placeholder="请输入要选择的class"
+      />
+    </div>
+    <div nz-col nzSpan="18" style="margin-top: 10px;">
+      <button (click)="spiderUrl()" nz-button nzType="default">
+        SpiderUrl
+      </button>
+    </div>
+  </div>
+  <div *ngSwitchCase="1">
+    <nz-row style="margin: 20px 0;">
+      <button nz-button (click)="addRow()" nzType="primary">Add</button>
+      <button
+        nz-button
+        (click)="spiderUrls()"
+        nzType="primary"
+        style="margin-left: 10px;"
+      >
+        SpiderUrls
+      </button>
+    </nz-row>
+    <nz-table
+      #editRowTable
+      nzBordered
+      [nzLoading]="isLoading"
+      [nzData]="elements"
+      [nzShowPagination]="false"
+    >
+      <thead>
+        <tr>
+          <th nzWidth="30%">名称</th>
+          <th>选择器</th>
+          <th>值</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          *ngFor="let item of editRowTable.data; let i = index"
+          class="editable-row"
+        >
+          <td>
+            <input
+              type="text"
+              nz-input
+              [(ngModel)]="item.name"
+              placeholder="请输入需要获取字段名称（自定义）"
+            />
+          </td>
+          <td>
+            <input
+              type="text"
+              nz-input
+              [(ngModel)]="item.selector"
+              placeholder="请输入字段值"
+            />
+          </td>
+
+          <td>
+            {{ item.value }}
+          </td>
+          <td>
+            <a
+              nz-popconfirm
+              nzTitle="Sure to delete?"
+              (nzOnConfirm)="deleteRow(item.id)"
+              >Delete</a
+            >
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
+  <div *ngSwitchCase="2">
+    <div *ngFor="let item of result">
+      <h2>{{ item.url }}</h2>
+      <nz-table
+        #listRowTable
+        nzBordered
+        [nzData]="item.elements"
+        [nzShowPagination]="false"
+      >
+        <thead>
+          <tr>
+            <th nzWidth="30%">名称</th>
+            <th>选择器</th>
+            <th>值</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let element of listRowTable.data" class="editable-row">
+            <td>
+              {{ element.name }}
+            </td>
+            <td>
+              {{ element.selector }}
+            </td>
+            <td>
+              {{ element.value }}
+            </td>
+          </tr>
+        </tbody>
+      </nz-table>
+    </div>
+  </div>
+</div>

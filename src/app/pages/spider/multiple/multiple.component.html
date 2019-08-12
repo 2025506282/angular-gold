@@ -1,88 +1,61 @@
-<nz-steps [nzCurrent]="current">
-  <nz-step nzTitle="获取爬虫url"></nz-step>
-  <nz-step nzTitle="爬取内容"></nz-step>
-  <nz-step nzTitle="完成"></nz-step>
-</nz-steps>
-<div class="steps-content" [ngSwitch]="current">
-  <div *ngSwitchCase="0">
-    <div nz-col nzSpan="18" style="margin-top: 10px;">
-      <input nz-input [(ngModel)]="url" placeholder="请输入爬取的url" />
-    </div>
-    <div nz-col nzSpan="18" style="margin-top: 10px;">
-      <input
-        nz-input
-        [(ngModel)]="selector"
-        placeholder="请输入要选择的class"
-      />
-    </div>
-    <div nz-col nzSpan="18" style="margin-top: 10px;">
-      <button (click)="send()" nz-button nzType="default">Send</button>
-    </div>
+<div *ngIf="!isChildRouter; else childRouter">
+  <form
+    nz-form
+    [nzLayout]="'inline'"
+    [formGroup]="validateForm"
+    (ngSubmit)="submitForm()"
+  >
+    <nz-form-item>
+      <nz-form-control>
+        <nz-input-group nzPrefixIcon="chrome">
+          <input formControlName="url" nz-input placeholder="Url" />
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control>
+        <nz-input-group nzPrefixIcon="clock-circle">
+          <nz-range-picker
+            formControlName="time"
+            nzFormat="yyyy/MM/dd"
+          ></nz-range-picker>
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control>
+        <button nz-button nzType="primary" [disabled]="!validateForm.valid">
+          Search
+        </button>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+  <div nz-row style="margin-top: 10px;margin-bottom: 5px;">
+    <a nz-button nzType="primary" [routerLink]="['/spider/multiple/new']" (click)="isChildRouter=true">New</a>
   </div>
-  <div *ngSwitchCase="1">
-    <h3>爬到的url</h3>
-    <div style="text-align: left;">
-      {{ locations | json }}
-    </div>
-    <nz-row>
-      <button nz-button (click)="addRow()" nzType="primary">Add</button>
-      <button
-        nz-button
-        (click)="send()"
-        nzType="primary"
-        style="margin-left: 10px;"
-      >
-        Send
-      </button>
-    </nz-row>
-    <nz-table
-      #editRowTable
-      nzBordered
-      [nzData]="spiders"
-      [nzShowPagination]="false"
-    >
-      <thead>
-        <tr>
-          <th nzWidth="30%">名称</th>
-          <th>选择器</th>
-          <th>值</th>
-          <th>操作</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr
-          *ngFor="let item of editRowTable.data; let i = index"
-          class="editable-row"
-        >
-          <td>
-            <input
-              type="text"
-              nz-input
-              [(ngModel)]="item.name"
-              placeholder="请输入需要获取字段名称（自定义）"
-            />
-          </td>
-          <td>
-            <input
-              type="text"
-              nz-input
-              [(ngModel)]="item.selector"
-              placeholder="请输入字段值"
-            />
-          </td>
-          <td>
-            {{ item.value }}
-          </td>
-          <td>
-            <a
-              nz-popconfirm
-              nzTitle="Sure to delete?"
-              (nzOnConfirm)="deleteRow(item.id)"
-              >Delete</a
-            >
-          </td>
-        </tr>
-      </tbody>
-    </nz-table>
-  </div>
+  <nz-table #basicTable nzBordered [nzData]="spiderList">
+    <thead>
+      <tr>
+        <th>Time</th>
+        <th>Url</th>
+        <th>Seletcor</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of basicTable.data">
+        <td>{{ item.time }}</td>
+        <td>{{ item.url }}</td>
+        <td>{{ item.selector }}</td>
+        <td>
+          <a (click)="edit(item)">Edit</a>
+          <nz-divider nzType="vertical"></nz-divider>
+          <a (click)="delete(item)">Delete</a>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
 </div>
+<ng-template #childRouter>
+  <router-outlet></router-outlet>
+</ng-template>

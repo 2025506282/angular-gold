@@ -53,10 +53,40 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 单页面爬取,根据用户传入的url,进行爬取其中相应内容，传入表格
 
-|    名称    | selector  | 值         |
+|    名称    | Element  | 值         |
 | --------- | --------- | --------- |
 |    最新价  | .latest-price |   312.12   |
 
 #### 3.1.2、多页面爬取
 
 多页面爬取, 首先根据传入的一个url, 获取多个url后, 后续步骤如单页面爬取一样 
+#### 3.1.2.1、页面介绍
+爬取历史，新建多页面爬取，编辑爬取内容，删除爬取,详情
+
+list---爬取时间、爬取url、爬取选择器、查看、删除、编辑、查找
+
+#### 3.1.2.2、 爬取数据格式
+
+##### 3.1.2.2.1、 传入参数
+```
+interface IElement {
+    id: string, // id
+    name: string, // 名称别名
+    Element: string, // 选择器
+    value: string, // 值
+}
+```
+
+```
+interface IElementSingle {
+    url: string,
+    Element: IElement
+}
+```
+
+```
+interface IElementMultiple {
+    urls: string[],
+    Element: IElement[]
+}
+```
