@@ -4,3 +4,11 @@ export interface IElement {
   selector: string;
   value?: string;
 }
+export interface ISpiderUrlForm {
+  url: string;
+  elements: IElement[];
+}
+export interface ISpiderUrlsForm {
+  urls: string[];
+  elements: IElement[];
+}

@@ -1,0 +1,38 @@
+<div nz-row nzType="flex" style="margin-top: 20px;">
+  <div style="width: 350px;">
+    <p *ngFor="let url of resultUrls">{{ url }}</p>
+  </div>
+  <div style="flex:1;">
+    <h3>爬取的选择器</h3>
+    <nz-row style="margin-bottom: 10px;">
+      <nz-select style="width: 120px;" [(ngModel)]="selectedType" nzAllowClear nzPlaceHolder="Choose" (ngModelChange)="onSelectTypeChange($event)">
+        <nz-option *ngFor="let item of selectedTypes" [nzValue]="item.id" [nzLabel]="item.label"></nz-option>
+      </nz-select>
+      <button nz-button (click)="addRow()" nzType="primary" style="margin-left: 10px;">Add</button>
+      <button nz-button (click)="send()" nzType="primary" style="margin-left: 10px;">Send</button>
+    </nz-row>
+    <nz-table #listRowTable nzBordered [nzData]="elements" [nzShowPagination]="false">
+      <thead>
+        <tr>
+          <th nzWidth="30%">名称</th>
+          <th>选择器</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let element of listRowTable.data" class="editable-row">
+          <td>
+            {{ element.name }}
+            <!-- <input type="text" nz-input [(ngModel)]="element.name" placeholder="请输入字段名称" /> -->
+          </td>
+          <td>
+            <input type="text" nz-input [(ngModel)]="element.selector" placeholder="请输入选择器" />
+          </td>
+          <td>
+            <a nz-popconfirm nzTitle="Sure to delete?" (nzOnConfirm)="deleteRow(element.id)">Delete</a>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
+</div>

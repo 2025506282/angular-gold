@@ -3,8 +3,12 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgZorroAntdModule } from 'ng-zorro-antd';
+import { ThirdLoginComponent } from './components/third-login/third-login.component';
 const THIRDMODULES = [
   NgZorroAntdModule,
+];
+const THIRDCOMPONENTS = [
+  ThirdLoginComponent,
 ];
 @NgModule({
   imports: [
@@ -12,17 +16,18 @@ const THIRDMODULES = [
     FormsModule,
     RouterModule,
     ReactiveFormsModule,
-    ...THIRDMODULES
+    ...THIRDMODULES,
   ],
   declarations: [
-    
+    ...THIRDCOMPONENTS,
   ],
   exports: [
     CommonModule,
     FormsModule,
     RouterModule,
     ReactiveFormsModule,
-    ...THIRDMODULES
-  ]
+    ...THIRDMODULES,
+    ...THIRDCOMPONENTS,
+  ],
 })
 export class SharedModule { }

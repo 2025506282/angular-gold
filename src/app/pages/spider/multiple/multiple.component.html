@@ -30,8 +30,8 @@
       </nz-form-control>
     </nz-form-item>
   </form>
-  <div nz-row style="margin-top: 10px;margin-bottom: 5px;">
-    <a nz-button nzType="primary" [routerLink]="['/spider/multiple/new']" (click)="isChildRouter=true">New</a>
+  <div nz-row style="margin-top: 5px;margin-bottom: 10px;">
+    <a nz-button nzType="primary"  (click)="toNew()">New</a>
   </div>
   <nz-table #basicTable nzBordered [nzData]="spiderList">
     <thead>

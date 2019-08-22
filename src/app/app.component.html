@@ -1,28 +1,17 @@
 <nz-layout class="app-layout">
-  <nz-sider
-    class="menu-sidebar"
-    nzCollapsible
-    nzWidth="256px"
-    nzBreakpoint="md"
-    [(nzCollapsed)]="isCollapsed"
-    [nzTrigger]="null"
-  >
+  <nz-sider class="menu-sidebar" nzCollapsible nzWidth="256px" nzBreakpoint="md" [(nzCollapsed)]="isCollapsed"
+    [nzTrigger]="null">
     <div class="sidebar-logo">
       <a href="https://ng.ant.design/" target="_blank">
         <img src="https://ng.ant.design/assets/img/logo.svg" alt="logo" />
         <h1>Ant Design Of Angular</h1>
       </a>
     </div>
-    <ul
-      nz-menu
-      nzTheme="dark"
-      nzMode="inline"
-      [nzInlineCollapsed]="isCollapsed"
-    >
-      <li nz-submenu nzOpen nzTitle="Dashboard" nzIcon="dashboard">
+    <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
+      <li nz-submenu nzOpen nzTitle="News" nzIcon="dashboard">
         <ul>
           <li nz-menu-item nzMatchRouter>
-            <a routerLink="/welcome">Welcome</a>
+            <a routerLink="/news">News</a>
           </li>
         </ul>
       </li>
@@ -45,12 +34,41 @@
     <nz-header>
       <div class="app-header">
         <span class="header-trigger" (click)="isCollapsed = !isCollapsed">
-          <i
-            class="trigger"
-            nz-icon
-            [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
-          ></i>
+          <i class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"></i>
         </span>
+        <div class="header-right">
+          <ul>
+            <li>
+              <nz-input-group [nzSuffix]="suffixIconSearch">
+                <input type="text" nz-input placeholder="Search" />
+              </nz-input-group>
+              <ng-template #suffixIconSearch>
+                <i nz-icon nzType="search"></i>
+              </ng-template>
+            </li>
+            <li>
+              <button nz-button nzType="primary" nzBlock>写文章</button>
+            </li>
+            <li>
+              <a class="btn btn-login" (click)="isVisibleLogin = true">登录</a>
+              <a class="btn" (click)="isVisibleRegister = true">注册</a>
+            </li>
+            <li>
+              <nz-badge [nzCount]="0">
+                <i nz-icon nzType="bell" nzTheme="outline"></i>
+              </nz-badge>
+            </li>
+            <li>
+              <nz-avatar nz-dropdown [nzDropdownMenu]="menu" [nzSize]="28" nzIcon="user"></nz-avatar>
+              <nz-dropdown-menu #menu="nzDropdownMenu" nzOverlayClassName="dropdown">
+                <ul nz-menu>
+                  <li nz-menu-item>写文章</li>
+                  <li nz-menu-item>我的主页</li>
+                </ul>
+              </nz-dropdown-menu>
+            </li>
+          </ul>
+        </div>
       </div>
     </nz-header>
     <nz-content>
@@ -60,3 +78,66 @@
     </nz-content>
   </nz-layout>
 </nz-layout>
+<nz-modal nzWrapClassName="vertical-center-modal" [(nzVisible)]="isVisibleLogin" nzTitle="登录" [nzOkText]="null"
+  [nzCancelText]="null" (nzOnCancel)="isVisibleLogin = false">
+  <form nz-form [formGroup]="validateForm" class="login-form" (ngSubmit)="submitForm()">
+    <nz-form-item>
+      <nz-form-control nzErrorTip="请输入手机号或邮箱">
+        <nz-input-group nzPrefixIcon="phone">
+          <input type="text" nz-input formControlName="userName" placeholder="请输入手机号或邮箱" />
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control nzErrorTip="请输入密码">
+        <nz-input-group nzPrefixIcon="lock">
+          <input type="password" nz-input formControlName="password" placeholder="请输入密码" />
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control>
+        <label nz-checkbox formControlName="remember">
+          <span>记住账号</span>
+        </label>
+        <a class="login-form-forgot" class="login-form-forgot">忘记密码</a>
+        <button nz-button class="login-form-button" [nzType]="'primary'">登录</button>
+        <a (click)="isVisibleRegister = true;isVisibleLogin = false;">注册</a>
+      </nz-form-control>
+      <app-third-login></app-third-login>
+    </nz-form-item>
+  </form>
+</nz-modal>
+<nz-modal nzWrapClassName="vertical-center-modal" [(nzVisible)]="isVisibleRegister" nzTitle="注册" [nzOkText]="null"
+  [nzCancelText]="null" (nzOnCancel)="isVisibleRegister = false">
+  <form nz-form [formGroup]="validateForm" class="login-form" (ngSubmit)="submitForm()">
+    <nz-form-item>
+      <nz-form-control nzErrorTip="请输入用户名">
+        <nz-input-group nzPrefixIcon="user">
+          <input type="text" nz-input formControlName="userName" placeholder="请输入用户名" />
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control nzErrorTip="请输入手机号">
+        <nz-input-group nzPrefixIcon="phone">
+          <input type="text" nz-input formControlName="telephone" placeholder="请输入手机号" />
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control nzErrorTip="请输入密码">
+        <nz-input-group nzPrefixIcon="lock">
+          <input type="password" nz-input formControlName="password" placeholder="请输入密码" />
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control>
+        <button nz-button class="login-form-button" [nzType]="'primary'">注册</button>
+        <a (click)="isVisibleRegister = false;isVisibleLogin = true;">已有账号登录</a>
+      </nz-form-control>
+      <app-third-login></app-third-login>
+    </nz-form-item>
+  </form>
+</nz-modal>

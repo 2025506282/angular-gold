@@ -11,7 +11,7 @@ describe('Step1Component', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ Step1Component ]
+      declarations: [ Step1Component ],
     })
     .compileComponents();
   }));

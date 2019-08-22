@@ -2,12 +2,9 @@
   <input nz-input [(ngModel)]="url" placeholder="请输入爬取的url" />
 </div>
 <div nz-col nzSpan="18" style="margin-top: 10px;">
-  <input
-    nz-input
-    [(ngModel)]="element.selector"
-    placeholder="请输入要选择的class"
-  />
+  <input nz-input [(ngModel)]="element.selector" placeholder="请输入要选择的class" />
 </div>
+
 <div nz-col nzSpan="18" style="margin-top: 10px;">
   <button (click)="spiderUrl()" nz-button nzType="default">
     SpiderUrl

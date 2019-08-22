@@ -72,7 +72,7 @@ list---爬取时间、爬取url、爬取选择器、查看、删除、编辑、�
 interface IElement {
     id: string, // id
     name: string, // 名称别名
-    Element: string, // 选择器
+    element: string, // 选择器
     value: string, // 值
 }
 ```
@@ -80,7 +80,7 @@ interface IElement {
 ```
 interface IElementSingle {
     url: string,
-    Element: IElement
+    Element: IElement[]
 }
 ```
 

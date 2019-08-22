@@ -9,6 +9,9 @@ import { SingleComponent } from './single/single.component';
 import { MultipleEditComponent } from './multiple/edit/edit.component';
 import { MultipleNewComponent } from './multiple/new/new.component';
 import { Step1Component } from './multiple/components/step1/step1.component';
+import { Step2Component } from './multiple/components/step2/step2.component';
+import { SpiderGuard } from './spider.guard';
+import { Step3Component } from './multiple/components/step3/step3.component';
 const COMPONENTS  = [
   SpiderComponent,
   NewsComponent,
@@ -17,13 +20,16 @@ const COMPONENTS  = [
   SingleComponent,
   MultipleEditComponent,
   MultipleNewComponent,
-  Step1Component
+  Step1Component,
+  Step2Component,
+  Step3Component,
 ];
 @NgModule({
   imports: [
     SharedModule,
-    SpiderRoutes
+    SpiderRoutes,
   ],
-  declarations: [...COMPONENTS]
+  providers: [ SpiderGuard ],
+  declarations: [...COMPONENTS],
 })
 export class SpiderModule { }

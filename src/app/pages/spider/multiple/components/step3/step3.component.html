@@ -1,0 +1,30 @@
+<div *ngFor="let page of resultPages">
+  <h2>
+    {{page.url}}
+  </h2>
+  <div>
+    <nz-table #listRowTable nzBordered [nzData]="page.elements" [nzShowPagination]="false">
+      <thead>
+        <tr>
+          <th nzWidth="30%">名称</th>
+          <th>选择器</th>
+          <th>值</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let element of listRowTable.data" class="editable-row">
+          <td>
+            {{element.name}}
+          </td>
+          <td>
+            {{element.selector}}
+          </td>
+          <td>
+            <span [innerHTML]="element.value"></span>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
+
+</div>
